@@ -1,13 +1,209 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --background-color: #f1f1f1;
+  --task-color: white;
+  --primary-text-color: #181a1e;
+  --secondary-text-color: #96999d;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0%;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  color: var(--primary-text-color);
+}
+
+body {
+  min-height: 100vh;
+  padding: 10px;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app {
+  width: 700px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 3em 0 1em;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 550;
+}
+
+h2 {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--secondary-text-color);
+}
+
+.day {
+  position: relative;
+  border-radius: 7px;
+  overflow: hidden;
+  background-color: var(--task-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-select {
+  appearance: none;
+  padding: 10px 25px;
+  padding-left: 45px;
+
+  color: var(--primary-text-color);
+  font: inherit;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+.day-button {
+  position: absolute;
+
+  left: 0;
+  margin-left: 7px;
+  width: 25px;
+  height: 25px;
+
+  padding: 3px 2px 0;
+  border: none;
+  border-radius: 7px;
+  background-color: var(--background-color);
+  pointer-events: none;
+}
+
+form {
+  position: relative;
+}
+
+.todo-input {
+  box-sizing: border-box;
+  padding: 15px 50px;
+  width: 40%;
+  background-color: var(--primary-text-color);
+  border: none;
+  border-radius: 1000px;
+  font: inherit;
+  color: var(--task-color);
+  caret-color: var(--task-color);
+}
+
+.todo-input:focus {
+  outline: none;
+}
+
+.addButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background: none;
+  height: 100%;
+  padding: 0 25px 3px;
+  border: none;
+  border-radius: 1000px;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--task-color);
+  cursor: pointer;
+}
+
+.day button svg {
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.todo {
+  margin-bottom: 10px;
+  padding: 0px 16px;
+  background-color: var(--task-color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.todo .todo-text {
+  padding: 15px;
+  padding-right: 0;
+  flex-grow: 1;
+}
+
+.task-completed {
+  padding: 15px;
+  padding-right: 0;
+  flex-grow: 1;
+  text-decoration: line-through;
+  color: var(--secondary-text-color);
+}
+
+.delete-button {
+  padding: 3px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete-button svg {
+  transition: 200ms ease;
+}
+
+.delete-button:hover svg {
+  fill: rgb(179, 14, 14);
+}
+
+label.checkbox {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+label span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--secondary-text-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+label span svg {
+  width: 100%;
+  height: 100%;
+}
+
+label span svg.checked {
+  width: 100%;
+  height: 100%;
+  fill: var(--secondary-text-color);
 }
