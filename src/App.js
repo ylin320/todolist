@@ -42,6 +42,7 @@ const initialList = [
 export default function App() {
   const [tasks, setTasks] = useState(initialList);
   const [day, setDay] = useState("today");
+  const [sortBy, setSortBy] = useState("default");
 
   function handleDay(day) {
     setDay(day);
@@ -73,9 +74,16 @@ export default function App() {
         tasks={tasks}
         onDeleteTask={handleDeleteTask}
         onToggleTask={handleToggleTask}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
-      <CreateNewTask onAddTasks={handleAddTasks} day={day} />
-      <Stats />
+      <CreateNewTask
+        onAddTasks={handleAddTasks}
+        day={day}
+        tasks={tasks}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
     </div>
   );
 }
@@ -112,11 +120,26 @@ function Header({ onDay }) {
   );
 }
 
-function ToDoList({ tasks, onDeleteTask, onToggleTask, day }) {
+function ToDoList({
+  tasks,
+  onDeleteTask,
+  onToggleTask,
+  day,
+  sortBy,
+  setSortBy,
+}) {
+  let sortedTask;
+  if (sortBy === "default") sortedTask = tasks;
+  if (sortBy === "status")
+    sortedTask = tasks
+      .slice()
+      .sort((a, b) => Number(a.completed) - Number(b.completed));
+  console.log(sortedTask);
+
   return (
     <div className="list">
       <ul>
-        {tasks.map(
+        {sortedTask.map(
           (task) =>
             task.day === day && (
               <Task
@@ -173,7 +196,7 @@ function Task({ task, onDeleteTask, onToggleTask }) {
   );
 }
 
-function CreateNewTask({ onAddTasks, day }) {
+function CreateNewTask({ onAddTasks, day, tasks, sortBy, setSortBy }) {
   const [task, setTask] = useState("");
 
   function handleSubmit(e) {
@@ -188,19 +211,33 @@ function CreateNewTask({ onAddTasks, day }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        className="todo-input"
-        type="text"
-        placeholder="Create new task"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-      />
-      <button className="addButton">+</button>
-    </form>
+    <div className="footer">
+      <form onSubmit={handleSubmit}>
+        <input
+          className="todo-input"
+          type="text"
+          placeholder="Create new task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+        <button className="addButton">+</button>
+      </form>
+      <Sort sortBy={sortBy} setSortBy={setSortBy} />
+    </div>
   );
 }
 
-function Stats() {
-  return <footer></footer>;
+function Sort({ tasks, sortBy, setSortBy }) {
+  return (
+    <>
+      <select
+        className="sort-select"
+        value={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+      >
+        <option value="default">Sort by Default</option>
+        <option value="status">Sort by Status</option>
+      </select>
+    </>
+  );
 }

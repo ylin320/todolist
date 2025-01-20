@@ -207,3 +207,36 @@ label span svg.checked {
   height: 100%;
   fill: var(--secondary-text-color);
 }
+
+.footer {
+  position: relative;
+}
+
+.sort-button {
+  position: absolute;
+  bottom: 30%;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background-color: var(--primary-text-color);
+}
+
+.sort-select {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 48px;
+  width: 20%;
+  background: none;
+  border: 2px solid var(--secondary-text-color);
+  color: var(--secondary-text-color);
+  font-size: 15px;
+  text-align: center;
+  border-radius: 1000px;
+  appearance: none;
+  outline: none;
+}
